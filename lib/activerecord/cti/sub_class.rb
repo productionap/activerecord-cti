@@ -19,8 +19,6 @@ module ActiveRecord
             model_instance
           end
         end
-
-        self.pk_is_fk = false
       end
 
       class_methods do
@@ -47,7 +45,7 @@ module ActiveRecord
         end
 
         def foreign_key_name
-          if superclass.pk_is_fk
+          if superclass.method_defined? :pk_is_fk && superclass.pk_is_fk
             @primary_key
           else
             superclass.to_s.foreign_key
