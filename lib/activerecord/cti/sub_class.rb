@@ -45,7 +45,11 @@ module ActiveRecord
         end
 
         def foreign_key_name
-          superclass.to_s.foreign_key
+          if superclass.pk_is_fk
+            @primary_key
+          else
+            superclass.to_s.foreign_key
+          end
         end
 
         # Get columns to pass +joins+ while calling +default_scope+.
